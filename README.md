@@ -28,23 +28,16 @@ Tracks movies on the Apple/iTunes Store and sends you an SMS when they go on sal
 4. Click **Connect to Project** → select your project
 5. Vercel automatically adds the `KV_*` environment variables — nothing to copy
 
-### Step 4 — Set up Twilio SMS (free trial)
+### Step 4 — Add two environment variables
 
-1. Go to [twilio.com](https://twilio.com) and sign up for a free trial
-2. On your console dashboard, copy your **Account SID** and **Auth Token**
-3. Click **Get a trial phone number** — this is your `TWILIO_FROM_NUMBER`
-4. In Vercel → your project → **Settings → Environment Variables**, add:
+In Vercel → your project → **Settings → Environment Variables**, add:
 
 | Name | Value |
 |------|-------|
-| `TWILIO_ACCOUNT_SID` | Your Account SID from Twilio |
-| `TWILIO_AUTH_TOKEN` | Your Auth Token from Twilio |
-| `TWILIO_FROM_NUMBER` | Your Twilio phone number (e.g. `+15005550006`) |
-| `ALERT_TO_NUMBER` | Your personal phone number (e.g. `+13105551234`) |
-| `CRON_SECRET` | Any long random string — make one up |
+| `CRON_SECRET` | Any long random string — make one up (e.g. `mysecret123abc`) |
 | `PRICE_THRESHOLD` | Price in USD to alert at (e.g. `5.99`) |
 
-5. After adding variables, go to **Deployments** → click the three dots on your latest deploy → **Redeploy**
+After adding, go to **Deployments** → click the three dots on your latest deploy → **Redeploy**.
 
 ### Step 5 — You're live!
 

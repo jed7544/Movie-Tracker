@@ -5,7 +5,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getMovies, saveMovies } from '../../../lib/db'
 import { fetchItunesPrice } from '../../../lib/itunes'
-import { sendSMS } from '../../../lib/sms'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Protect the endpoint — Vercel sends the secret automatically, or you can pass it manually
@@ -42,14 +41,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   await saveMovies(movies)
-
-  if (alerts.length > 0) {
-    const message =
-      `Movie price alert!\n\n` +
-      alerts.join('\n') +
-      `\n\nView your watchlist at ${process.env.NEXT_PUBLIC_BASE_URL ?? 'your app'}`
-    await sendSMS(message)
-  }
 
   res.json({ checked: movies.length, alerts })
 }
