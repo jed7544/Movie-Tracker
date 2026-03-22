@@ -1,17 +1,22 @@
-// lib/db.ts — simple movie list storage using Vercel KV
+// lib/db.ts — simple movie list storage using Upstash Redis
 
-import { kv } from '@vercel/kv'
+import { Redis } from '@upstash/redis'
 import { MovieRecord } from './itunes'
+
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL!,
+  token: process.env.KV_REST_API_TOKEN!,
+})
 
 const KEY = 'movies'
 
 export async function getMovies(): Promise<MovieRecord[]> {
-  const movies = await kv.get<MovieRecord[]>(KEY)
+  const movies = await redis.get<MovieRecord[]>(KEY)
   return movies ?? []
 }
 
 export async function saveMovies(movies: MovieRecord[]): Promise<void> {
-  await kv.set(KEY, movies)
+  await redis.set(KEY, movies)
 }
 
 export async function addMovie(movie: MovieRecord): Promise<MovieRecord[]> {
